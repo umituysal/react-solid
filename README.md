@@ -1,46 +1,76 @@
-# Getting Started with Create React App
+# React S.O.L.I.D Principles for writing clean-code
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## SRP: Single Responsibility Principle
 
-## Available Scripts
+A class should have a single responsibility
+If a Class has many responsibilities, it increases the possibility of bugs because making changes to one of its responsibilities, could affect the other ones without you knowing.
 
-In the project directory, you can run:
+### Goal
 
-### `npm start`
+This principle aims to separate behaviours so that if bugs arise as a result of your change, it won’t affect other unrelated behaviours.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## OCP: Open-Closed Principle
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Classes should be open for extension, but closed for modification
 
-### `npm test`
+Changing the current behaviour of a Class will affect all the systems using that Class.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If you want the Class to perform more functions, the ideal approach is to add to the functions that already exist NOT change them.
 
-### `npm run build`
+### Goal
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This principle aims to extend a Class’s behaviour without changing the existing behaviour of that Class. This is to avoid causing bugs wherever the Class is being used.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## LSP: Liskov Substitution Principle
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
 
-### `npm run eject`
+When a child Class cannot perform the same actions as its parent Class, this can cause bugs.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If you have a Class and create another Class from it, it becomes a parent and the new Class becomes a child. The child Class should be able to do everything the parent Class can do. This process is called Inheritance.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The child Class should be able to process the same requests and deliver the same result as the parent Class or it could deliver a result that is of the same type.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The picture shows that the parent Class delivers Coffee(it could be any type of coffee). It is acceptable for the child Class to deliver Cappucino because it is a specific type of Coffee, but it is NOT acceptable to deliver Water.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If the child Class doesn’t meet these requirements, it means the child Class is changed completely and violates this principle.
 
-## Learn More
+### Goal
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This principle aims to enforce consistency so that the parent Class or its child Class can be used in the same way without any errors.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ISP: Interface Segregation Principle
+
+Clients should not be forced to depend on methods that they do not use.
+
+When a Class is required to perform actions that are not useful, it is wasteful and may produce unexpected bugs if the Class does not have the ability to perform those actions.
+
+A Class should perform only actions that are needed to fulfil its role. Any other action should be removed completely or moved somewhere else if it might be used by another Class in the future.
+
+### Goal
+
+This principle aims at splitting a set of actions into smaller sets so that a Class executes ONLY the set of actions it requires.
+
+## DIP: Dependency Inversion Principle
+
+- High-level modules should not depend on low-level modules. Both should depend on the abstraction.
+
+- Abstractions should not depend on details. Details should depend on abstractions.
+
+Firstly, let’s define the terms used here more simply
+
+High-level Module(or Class): Class that executes an action with a tool.
+
+Low-level Module (or Class): The tool that is needed to execute the action
+
+Abstraction: Represents an interface that connects the two Classes.
+
+Details: How the tool works
+
+This principle says a Class should not be fused with the tool it uses to execute an action. Rather, it should be fused to the interface that will allow the tool to connect to the Class.
+
+It also says that both the Class and the interface should not know how the tool works. However, the tool needs to meet the specification of the interface.
+
+### Goal
+
+This principle aims at reducing the dependency of a high-level Class on the low-level Class by introducing an interface.
